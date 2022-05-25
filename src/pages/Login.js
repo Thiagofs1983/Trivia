@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import './CSS/Login.css';
+import triviaLogo from '../trivia.png';
 
 class Login extends Component {
   constructor() {
@@ -30,32 +32,41 @@ class Login extends Component {
   render() {
     const { name, email, isDisabled } = this.state;
     return (
-      <form>
-        <input
-          type="text"
-          name="name"
-          data-testid="input-player-name"
-          value={ name }
-          placeholder="Digite o seu nome"
-          onChange={ this.handleChange }
-        />
-        <input
-          type="email"
-          name="email"
-          data-testid="input-gravatar-email"
-          value={ email }
-          placeholder="Digite o seu email"
-          onChange={ this.handleChange }
-        />
-        <button
-          type="button"
-          data-testid="btn-play"
-          onClick={ this.validateBtn }
-          disabled={ isDisabled }
-        >
-          Play
-        </button>
-      </form>
+      <div className="mainContainer">
+        <img className="logo" src={ triviaLogo } alt="Logo do Trivia" />
+
+        <div className="formContainer">
+          <form className="form">
+            <input
+              className="input"
+              type="text"
+              name="name"
+              data-testid="input-player-name"
+              value={ name }
+              placeholder="Digite o seu nome"
+              onChange={ this.handleChange }
+            />
+            <input
+              className="input"
+              type="email"
+              name="email"
+              data-testid="input-gravatar-email"
+              value={ email }
+              placeholder="Digite o seu email"
+              onChange={ this.handleChange }
+            />
+            <button
+              className="button"
+              type="button"
+              data-testid="btn-play"
+              onClick={ this.validateBtn }
+              disabled={ isDisabled }
+            >
+              Play
+            </button>
+          </form>
+        </div>
+      </div>
     );
   }
 }
