@@ -4,13 +4,14 @@ body {
   padding: 0;
 }
 
-.App {
-  text-align: center;
+.App-logo {
+  height: 19vmin;
+  padding: 20px;
+  pointer-events: none;
 }
 
-.App-logo {
-  height: 15vmin;
-  pointer-events: none;
+.App {
+  text-align: center;
 }
 
 .red-border {
