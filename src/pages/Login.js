@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchToken } from '../services/getAPI';
+import { fetchTokenAPI } from '../redux/action';
 
 class Login extends Component {
   constructor() {
@@ -6,6 +10,7 @@ class Login extends Component {
     this.state = {
       name: '',
       email: '',
+      loading: false,
       isDisabled: true,
     };
   }
@@ -22,14 +27,25 @@ class Login extends Component {
     const nameCheck = name.length >= 1;
     if (emailCheck && nameCheck) {
       this.setState({ isDisabled: false });
-      return;
     }
-    this.setState({ isDisabled: true });
   };
 
+  handleClick = () => {
+    this.setState(() => ({
+      loading: true,
+    }), async () => {
+      const { token } = await fetchToken();
+      localStorage.setItem('token', token);
+      const { history, setToken } = this.props;
+      const { name, email } = this.state;
+      history.push('/game');
+      setToken({ name, email });
+    });
+  }
+
   render() {
-    const { name, email, isDisabled } = this.state;
-    return (
+    const { name, email, isDisabled, loading } = this.state;
+    return loading ? <p>CARREGANDO...</p> : (
       <form>
         <input
           type="text"
@@ -50,7 +66,7 @@ class Login extends Component {
         <button
           type="button"
           data-testid="btn-play"
-          onClick={ this.validateBtn }
+          onClick={ this.handleClick }
           disabled={ isDisabled }
         >
           Play
@@ -60,4 +76,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  setToken: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setToken: (state) => dispatch(fetchTokenAPI(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
