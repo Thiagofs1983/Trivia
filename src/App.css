@@ -10,8 +10,8 @@ body {
 
 .App-logo {
   height: 19vmin;
-  pointer-events: none;
   padding: 20px;
+  pointer-events: none;
 }
 
 .red-border {
