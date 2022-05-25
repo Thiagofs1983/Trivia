@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fetchQuestionsAPI } from '../services/getAPI';
 import Header from '../components/Header';
+import './CSS/Game.css';
 
 class Game extends Component {
   constructor() {
@@ -10,6 +11,7 @@ class Game extends Component {
       questions: [''],
       indexQuestion: 0,
       alternatives: [''],
+      isDisabled: false,
     };
   }
 
@@ -43,8 +45,14 @@ class Game extends Component {
     });
   }
 
+  handleClick = () => {
+    this.setState({
+      isDisabled: true,
+    });
+  }
+
   render() {
-    const { questions, alternatives, indexQuestion } = this.state;
+    const { questions, alternatives, indexQuestion, isDisabled } = this.state;
     console.log(questions, alternatives);
     const questionIndex = questions[indexQuestion];
     return (
@@ -63,7 +71,10 @@ class Game extends Component {
                 ? (
                   <button
                     type="button"
+                    className={ isDisabled === true ? 'correct' : '' }
                     key={ i }
+                    disabled={ isDisabled }
+                    onClick={ this.handleClick }
                     data-testid="correct-answer"
                   >
                     {alternative}
@@ -72,6 +83,9 @@ class Game extends Component {
                 : (
                   <button
                     type="button"
+                    className={ isDisabled === true ? 'wrong' : '' }
+                    onClick={ this.handleClick }
+                    disabled={ isDisabled }
                     key={ i }
                     data-testid={ `wrong-answer-${i}` }
                   >

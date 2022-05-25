@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import './CSS/Login.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchToken } from '../services/getAPI';
 import { fetchTokenAPI } from '../redux/action';
 
@@ -46,32 +48,52 @@ class Login extends Component {
   render() {
     const { name, email, isDisabled, loading } = this.state;
     return loading ? <p>CARREGANDO...</p> : (
-      <form>
-        <input
-          type="text"
-          name="name"
-          data-testid="input-player-name"
-          value={ name }
-          placeholder="Digite o seu nome"
-          onChange={ this.handleChange }
-        />
-        <input
-          type="email"
-          name="email"
-          data-testid="input-gravatar-email"
-          value={ email }
-          placeholder="Digite o seu email"
-          onChange={ this.handleChange }
-        />
-        <button
-          type="button"
-          data-testid="btn-play"
-          onClick={ this.handleClick }
-          disabled={ isDisabled }
-        >
-          Play
-        </button>
-      </form>
+      <div className="mainContainer">
+
+        <div className="formContainer">
+          <form className="form">
+            <h1>Login</h1>
+            <input
+              className="input"
+              type="text"
+              name="name"
+              data-testid="input-player-name"
+              value={ name }
+              placeholder="Digite o seu nome"
+              onChange={ this.handleChange }
+            />
+            <input
+              className="input"
+              type="email"
+              name="email"
+              data-testid="input-gravatar-email"
+              value={ email }
+              placeholder="Digite o seu email"
+              onChange={ this.handleChange }
+            />
+
+            <button
+              className="Game"
+              type="button"
+              data-testid="btn-play"
+              onClick={ this.handleClick }
+              disabled={ isDisabled }
+            >
+              PLAY
+            </button>
+
+            <Link to="/settings">
+              <button
+                className="button"
+                type="button"
+                data-testid="btn-settings"
+              >
+                SETTINGS
+              </button>
+            </Link>
+          </form>
+        </div>
+      </div>
     );
   }
 }
