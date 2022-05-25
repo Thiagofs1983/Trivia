@@ -11,6 +11,7 @@ class Game extends Component {
       indexQuestion: 0,
       alternatives: [''],
       isDisabled: false,
+      seconds: 30,
     };
   }
 
@@ -28,6 +29,24 @@ class Game extends Component {
       });
     }
     this.randomAlternatives();
+    this.timer();
+  }
+
+  componentWillUnmount() {
+    const { seconds } = this.state;
+    if (seconds === 0) {
+      clearInterval(this.interval);
+    }
+  }
+
+  timer = () => {
+    const ONE_SECOND = 1000;
+    const RESET_COUNT = 30;
+    this.interval = setInterval(() => {
+      this.setState((prev) => ({
+        seconds: prev.seconds === 0 ? RESET_COUNT : prev.seconds - 1,
+      }));
+    }, ONE_SECOND);
   }
 
   randomAlternatives = () => {
@@ -51,11 +70,17 @@ class Game extends Component {
   }
 
   render() {
-    const { questions, alternatives, indexQuestion, isDisabled } = this.state;
-    console.log(questions, alternatives);
+    const {
+      questions,
+      alternatives,
+      indexQuestion,
+      isDisabled,
+      seconds,
+    } = this.state;
     const questionIndex = questions[indexQuestion];
     return (
       <main>
+        <p>{ seconds }</p>
         <h2 data-testid="question-text">
           {questionIndex.question}
         </h2>
