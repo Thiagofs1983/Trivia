@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fetchQuestionsAPI } from '../services/getAPI';
+import Header from '../components/Header';
 
 class Game extends Component {
   constructor() {
@@ -48,6 +49,7 @@ class Game extends Component {
     const questionIndex = questions[indexQuestion];
     return (
       <main>
+        <Header />
         <h2 data-testid="question-text">
           {questionIndex.question}
         </h2>
