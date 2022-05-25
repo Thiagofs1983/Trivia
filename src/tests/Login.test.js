@@ -30,7 +30,7 @@ describe('1 - App.js', () => {
     expect(inputEmail).toBeDefined();
   });
 
-  it('Teste se a pagina contem um botao PLAY', () => {
+  it('Teste se a pagina contem um botao PLAY e esta desativado', () => {
     renderWithRouter(<App />);
     
     const btnEl = screen.getByTestId('btn-play');
