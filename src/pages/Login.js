@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './CSS/Login.css';
-import triviaLogo from '../trivia.png';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchToken } from '../services/getAPI';
