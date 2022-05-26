@@ -9,8 +9,9 @@ class Feedback extends Component {
     console.log(typeof userAssertions);
     const score = parseInt(userScore, 10);
     const assertions = parseInt(userAssertions, 10);
+    const QUESTIONS_ASSERTIONS = 3;
     return (
-      <div data-testid="feedback-text">
+      <div>
         <Header />
         <h2>PLACAR FINAL</h2>
         <h3 data-testid="feedback-total-score">
@@ -18,6 +19,9 @@ class Feedback extends Component {
         </h3>
         <h4>NÚMERO DE ACERTOS</h4>
         <p data-testid="feedback-total-question">{ assertions }</p>
+        <p data-testid="feedback-text">
+          { assertions < QUESTIONS_ASSERTIONS ? 'Could be better...' : 'Well Done!' }
+        </p>
       </div>
     );
   }
