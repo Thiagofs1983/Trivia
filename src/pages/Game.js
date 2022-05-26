@@ -33,21 +33,21 @@ class Game extends Component {
     this.timer();
   }
 
-  componentWillUnmount() {
-    const { seconds } = this.state;
-    if (seconds === 0) {
-      clearInterval(this.interval);
-    }
-  }
-
   timer = () => {
     const ONE_SECOND = 1000;
-    const RESET_COUNT = 30;
+    const THIRTY_SECONDS = 30000;
     this.interval = setInterval(() => {
       this.setState((prev) => ({
-        seconds: prev.seconds === 0 ? RESET_COUNT : prev.seconds - 1,
+        seconds: prev.seconds - 1,
       }));
     }, ONE_SECOND);
+    setTimeout(() => {
+      clearInterval(this.interval);
+      this.setState({
+        seconds: 0,
+        isDisabled: true,
+      });
+    }, THIRTY_SECONDS);
   }
 
   randomAlternatives = () => {
@@ -82,7 +82,7 @@ class Game extends Component {
     return (
       <main>
         <Header />
-        <p>{ seconds }</p>
+        <p>{ Number.isNaN(seconds) ? 0 : seconds }</p>
         <h2 data-testid="question-text">
           {questionIndex.question}
         </h2>
