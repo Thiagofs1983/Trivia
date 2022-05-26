@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchToken } from '../services/getAPI';
-import { fetchTokenAPI } from '../redux/action';
+import { createToken } from '../redux/action';
 
 class Login extends Component {
   constructor() {
@@ -41,7 +41,7 @@ class Login extends Component {
       const { history, setToken } = this.props;
       const { name, email } = this.state;
       history.push('/game');
-      setToken({ name, email });
+      setToken({ name, gravatarEmail: email });
     });
   }
 
@@ -106,7 +106,7 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setToken: (state) => dispatch(fetchTokenAPI(state)),
+  setToken: (state) => dispatch(createToken(state)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

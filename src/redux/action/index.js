@@ -1,20 +1,12 @@
-import { fetchToken } from '../../services/getAPI';
-
 export const TOKEN = 'TOKEN';
+export const SCORE = 'SCORE';
 
-export const createToken = (token, state) => ({
+export const createToken = (state) => ({
   type: TOKEN,
   payload: state,
-  token,
 });
 
-export const fetchTokenAPI = (state) => (
-  async (dispatch) => {
-    try {
-      const result = await fetchToken();
-      dispatch(createToken(result, state));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
+export const setScore = (score) => ({
+  type: SCORE,
+  payload: score,
+});
