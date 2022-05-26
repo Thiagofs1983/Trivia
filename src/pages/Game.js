@@ -21,8 +21,8 @@ class Game extends Component {
   }
 
   async componentDidMount() {
-    const token = JSON.parse(localStorage.getItem('token'));
-    const getToken = await fetchQuestionsAPI(token.token);
+    const token = localStorage.getItem('token');
+    const getToken = await fetchQuestionsAPI(token);
     const { history } = this.props;
     const TOKEN_INVALID = 3;
     if (getToken.response_code === TOKEN_INVALID) {
