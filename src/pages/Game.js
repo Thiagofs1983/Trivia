@@ -17,6 +17,7 @@ class Game extends Component {
       seconds: 30,
       score: 0,
       difficulty: '',
+      assertions: 0,
     };
   }
 
@@ -96,10 +97,11 @@ class Game extends Component {
     if (result === 'correct') {
       this.setState((prev) => ({
         score: prev.score + POINTS + (seconds * this.calculateDifficulty()),
+        assertions: prev.assertions + 1,
       }), () => {
         const { setScoree } = this.props;
-        const { score } = this.state;
-        setScoree(score);
+        const { score, assertions } = this.state;
+        setScoree({ score, assertions });
       });
     }
   }
