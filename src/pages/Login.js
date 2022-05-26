@@ -37,7 +37,7 @@ class Login extends Component {
       loading: true,
     }), async () => {
       const { token } = await fetchToken();
-      localStorage.setItem('token', JSON.stringify({ token }));
+      localStorage.setItem('token', token);
       const { history, setToken } = this.props;
       const { name, email } = this.state;
       history.push('/game');
