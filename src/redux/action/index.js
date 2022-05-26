@@ -6,7 +6,8 @@ export const createToken = (state) => ({
   payload: state,
 });
 
-export const setScore = (score) => ({
+export const setScore = (state) => ({
   type: SCORE,
-  payload: score,
+  score: state.score,
+  assertions: state.assertions,
 });
