@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './CSS/Login.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchToken } from '../services/getAPI';
 import { fetchTokenAPI } from '../redux/action';
 
@@ -70,15 +71,26 @@ class Login extends Component {
               placeholder="Digite o seu email"
               onChange={ this.handleChange }
             />
+
             <button
-              className="button"
+              className="Game"
               type="button"
               data-testid="btn-play"
-              onClick={ this.validateBtn }
+              onClick={ this.handleClick }
               disabled={ isDisabled }
             >
-              Play
+              PLAY
             </button>
+
+            <Link to="/settings">
+              <button
+                className="button"
+                type="button"
+                data-testid="btn-settings"
+              >
+                SETTINGS
+              </button>
+            </Link>
           </form>
         </div>
       </div>
