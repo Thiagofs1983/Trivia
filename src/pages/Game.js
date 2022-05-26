@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { fetchQuestionsAPI } from '../services/getAPI';
+import Header from '../components/Header';
+import './CSS/Game.css';
 
 class Game extends Component {
   constructor() {
@@ -9,6 +11,8 @@ class Game extends Component {
       questions: [''],
       indexQuestion: 0,
       alternatives: [''],
+      isDisabled: false,
+      seconds: 30,
     };
   }
 
@@ -26,12 +30,30 @@ class Game extends Component {
       });
     }
     this.randomAlternatives();
+    this.timer();
   }
 
-  randomAlternatives = () => {
+  timer = () => {
+    const ONE_SECOND = 1000;
+    const THIRTY_SECONDS = 30000;
+    this.interval = setInterval(() => {
+      this.setState((prev) => ({
+        seconds: prev.seconds - 1,
+      }));
+    }, ONE_SECOND);
+    this.timeOut = setTimeout(() => {
+      clearInterval(this.interval);
+      this.setState({
+        seconds: 0,
+        isDisabled: true,
+      });
+    }, THIRTY_SECONDS);
+  }
+
+  randomAlternatives = (number = 0) => {
     const { questions, indexQuestion } = this.state;
-    const falseAlternatives = questions[indexQuestion].incorrect_answers;
-    const correct = questions[indexQuestion].correct_answer;
+    const falseAlternatives = questions[indexQuestion + number].incorrect_answers;
+    const correct = questions[indexQuestion + number].correct_answer;
     const alternatives = [correct, ...falseAlternatives];
     // encontrei essa forma de embaralhar os itens do array no link abaixo.
     // https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=utilizando%20Console.log()%3A-,function%20shuffleArray(inputArray)%7B%0A%20%20%20%20inputArray.sort(()%3D%3E%20Math.random()%20%2D%200.5)%3B%0A%7D,-var%20demoArray%20%3D%20%5B1
@@ -42,12 +64,45 @@ class Game extends Component {
     });
   }
 
+  handleClick = () => {
+    this.setState({
+      isDisabled: true,
+    });
+    clearInterval(this.interval);
+    clearTimeout(this.timeOut);
+  }
+
+  buttonNext = () => {
+    const { history } = this.props;
+    const { indexQuestion } = this.state;
+    const MAX_LENGTH = 4;
+    if (indexQuestion < MAX_LENGTH) {
+      this.setState((prev) => ({
+        indexQuestion: prev.indexQuestion + 1,
+        isDisabled: false,
+        seconds: 30,
+      }));
+      this.randomAlternatives(1);
+      this.timer();
+    } else {
+      history.push('/feedback');
+    }
+  }
+
   render() {
-    const { questions, alternatives, indexQuestion } = this.state;
-    console.log(questions, alternatives);
+    const {
+      questions,
+      alternatives,
+      indexQuestion,
+      isDisabled,
+      seconds,
+    } = this.state;
     const questionIndex = questions[indexQuestion];
+    console.log(questionIndex);
     return (
       <main>
+        <Header />
+        <p>{ Number.isNaN(seconds) ? 0 : seconds }</p>
         <h2 data-testid="question-text">
           {questionIndex.question}
         </h2>
@@ -61,7 +116,10 @@ class Game extends Component {
                 ? (
                   <button
                     type="button"
+                    className={ isDisabled === true ? 'correct' : '' }
                     key={ i }
+                    disabled={ isDisabled }
+                    onClick={ this.handleClick }
                     data-testid="correct-answer"
                   >
                     {alternative}
@@ -70,6 +128,9 @@ class Game extends Component {
                 : (
                   <button
                     type="button"
+                    className={ isDisabled === true ? 'wrong' : '' }
+                    onClick={ this.handleClick }
+                    disabled={ isDisabled }
                     key={ i }
                     data-testid={ `wrong-answer-${i}` }
                   >
@@ -79,6 +140,17 @@ class Game extends Component {
             ))
           }
         </div>
+        {
+          isDisabled
+            && (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.buttonNext }
+              >
+                Next
+              </button>)
+        }
       </main>
     );
   }
