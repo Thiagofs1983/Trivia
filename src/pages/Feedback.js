@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
 class Feedback extends Component {
+  handleClick = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+
   render() {
     const { userScore, userAssertions } = this.props;
     console.log(typeof userAssertions);
@@ -22,6 +27,13 @@ class Feedback extends Component {
         <p data-testid="feedback-text">
           { assertions < QUESTIONS_ASSERTIONS ? 'Could be better...' : 'Well Done!' }
         </p>
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ this.handleClick }
+        >
+          Play Again
+        </button>
       </div>
     );
   }
@@ -30,6 +42,9 @@ class Feedback extends Component {
 Feedback.propTypes = {
   userScore: PropTypes.number.isRequired,
   userAssertions: PropTypes.number.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
