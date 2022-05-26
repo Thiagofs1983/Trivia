@@ -5,6 +5,7 @@ import logo from './trivia.png';
 import Login from './pages/Login';
 import Game from './pages/Game';
 import Settings from './pages/Settings';
+import Feedback from './pages/Feedback';
 
 export default function App() {
   return (
@@ -15,7 +16,7 @@ export default function App() {
           <Route exact path="/" component={ Login } />
           <Route path="/game" component={ Game } />
           <Route path="/Settings" component={ Settings } />
-
+          <Route path="/feedback" component={ Feedback } />
         </Switch>
       </header>
     </div>
