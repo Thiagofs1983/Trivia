@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Header from '../components/Header';
 
 class Feedback extends Component {
   render() {
@@ -10,6 +11,7 @@ class Feedback extends Component {
     const assertions = parseInt(userAssertions, 10);
     return (
       <div data-testid="feedback-text">
+        <Header />
         <h2>PLACAR FINAL</h2>
         <h3 data-testid="feedback-total-score">
           { score }

@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 class Score extends Component {
   render() {
     const { userScore } = this.props;
+    const score = parseInt(userScore, 10);
     return (
       <div>
+        <span>Score:</span>
         <span data-testid="header-score">
-          { `Score: ${userScore}` }
+          { score }
         </span>
       </div>
     );
