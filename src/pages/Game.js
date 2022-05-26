@@ -70,6 +70,14 @@ class Game extends Component {
     });
   }
 
+  buttonNext = () => {
+    this.setState((prev) => ({
+      indexQuestion: prev.indexQuestion + 1,
+      isDisabled: false,
+    }));
+    this.randomAlternatives();
+  }
+
   render() {
     const {
       questions,
@@ -120,6 +128,17 @@ class Game extends Component {
             ))
           }
         </div>
+        {
+          isDisabled
+            && (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.buttonNext }
+              >
+                Next
+              </button>)
+        }
       </main>
     );
   }
