@@ -12,6 +12,7 @@ class Game extends Component {
       indexQuestion: 0,
       alternatives: [''],
       isDisabled: false,
+      seconds: 30,
     };
   }
 
@@ -29,6 +30,24 @@ class Game extends Component {
       });
     }
     this.randomAlternatives();
+    this.timer();
+  }
+
+  timer = () => {
+    const ONE_SECOND = 1000;
+    const THIRTY_SECONDS = 30000;
+    this.interval = setInterval(() => {
+      this.setState((prev) => ({
+        seconds: prev.seconds - 1,
+      }));
+    }, ONE_SECOND);
+    setTimeout(() => {
+      clearInterval(this.interval);
+      this.setState({
+        seconds: 0,
+        isDisabled: true,
+      });
+    }, THIRTY_SECONDS);
   }
 
   randomAlternatives = () => {
@@ -52,12 +71,18 @@ class Game extends Component {
   }
 
   render() {
-    const { questions, alternatives, indexQuestion, isDisabled } = this.state;
-    console.log(questions, alternatives);
+    const {
+      questions,
+      alternatives,
+      indexQuestion,
+      isDisabled,
+      seconds,
+    } = this.state;
     const questionIndex = questions[indexQuestion];
     return (
       <main>
         <Header />
+        <p>{ Number.isNaN(seconds) ? 0 : seconds }</p>
         <h2 data-testid="question-text">
           {questionIndex.question}
         </h2>
