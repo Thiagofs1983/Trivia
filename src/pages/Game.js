@@ -41,7 +41,7 @@ class Game extends Component {
         seconds: prev.seconds - 1,
       }));
     }, ONE_SECOND);
-    setTimeout(() => {
+    this.timeOut = setTimeout(() => {
       clearInterval(this.interval);
       this.setState({
         seconds: 0,
@@ -50,10 +50,10 @@ class Game extends Component {
     }, THIRTY_SECONDS);
   }
 
-  randomAlternatives = () => {
+  randomAlternatives = (number = 0) => {
     const { questions, indexQuestion } = this.state;
-    const falseAlternatives = questions[indexQuestion].incorrect_answers;
-    const correct = questions[indexQuestion].correct_answer;
+    const falseAlternatives = questions[indexQuestion + number].incorrect_answers;
+    const correct = questions[indexQuestion + number].correct_answer;
     const alternatives = [correct, ...falseAlternatives];
     // encontrei essa forma de embaralhar os itens do array no link abaixo.
     // https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=utilizando%20Console.log()%3A-,function%20shuffleArray(inputArray)%7B%0A%20%20%20%20inputArray.sort(()%3D%3E%20Math.random()%20%2D%200.5)%3B%0A%7D,-var%20demoArray%20%3D%20%5B1
@@ -68,14 +68,25 @@ class Game extends Component {
     this.setState({
       isDisabled: true,
     });
+    clearInterval(this.interval);
+    clearTimeout(this.timeOut);
   }
 
   buttonNext = () => {
-    this.setState((prev) => ({
-      indexQuestion: prev.indexQuestion + 1,
-      isDisabled: false,
-    }));
-    this.randomAlternatives();
+    const { history } = this.props;
+    const { indexQuestion } = this.state;
+    const MAX_LENGTH = 4;
+    if (indexQuestion < MAX_LENGTH) {
+      this.setState((prev) => ({
+        indexQuestion: prev.indexQuestion + 1,
+        isDisabled: false,
+        seconds: 30,
+      }));
+      this.randomAlternatives(1);
+      this.timer();
+    } else {
+      history.push('/feedback');
+    }
   }
 
   render() {
@@ -87,6 +98,7 @@ class Game extends Component {
       seconds,
     } = this.state;
     const questionIndex = questions[indexQuestion];
+    console.log(questionIndex);
     return (
       <main>
         <Header />
