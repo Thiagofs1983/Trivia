@@ -1,8 +1,10 @@
-import { TOKEN } from '../action';
+import { TOKEN, SCORE } from '../action';
 
 const INITIAL_STATE = {
   name: '',
-  email: '',
+  assertions: 0,
+  score: 0,
+  gravatarEmail: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
@@ -11,7 +13,11 @@ const user = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       ...action.payload,
-      token: action.token,
+    };
+  case SCORE:
+    return {
+      ...state,
+      score: action.payload,
     };
   default:
     return state;
