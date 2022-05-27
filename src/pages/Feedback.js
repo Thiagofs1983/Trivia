@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { setScore } from '../redux/action';
 import Header from '../components/Header';
 
 class Feedback extends Component {
   handleClickLogin = () => {
-    const { history } = this.props;
+    const { history, defaultScore } = this.props;
     history.push('/');
+    defaultScore({ score: 0, assertion: 0 });
   }
 
   handleClickRanking = () => {
@@ -57,11 +59,16 @@ Feedback.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  defaultScore: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  defaultScore: (score) => dispatch(setScore(score)),
+});
 
 const mapStateToProps = (state) => ({
   userScore: state.player.score,
   userAssertions: state.player.assertions,
 });
 
-export default connect(mapStateToProps)(Feedback);
+export default connect(mapStateToProps, mapDispatchToProps)(Feedback);

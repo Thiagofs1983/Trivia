@@ -1,10 +1,11 @@
-import { TOKEN, SCORE } from '../action';
+import { TOKEN, GRAVATAR, SCORE } from '../action';
 
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
   score: 0,
   gravatarEmail: '',
+  gravatar: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
@@ -13,6 +14,11 @@ const user = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       ...action.payload,
+    };
+  case GRAVATAR:
+    return {
+      ...state,
+      gravatar: action.payload,
     };
   case SCORE:
     return {
