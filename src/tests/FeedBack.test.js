@@ -65,6 +65,7 @@ describe('FeedBack Screen Test', () => {
   it('Verifica se score é igual a 0', () => {
     const textEl = screen.getByTestId('header-score');
     const zero = 0;
+    
     expect(textEl).toBeDefined();
     expect(textEl).toEqual(zero);
   })
