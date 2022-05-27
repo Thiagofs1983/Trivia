@@ -4,9 +4,14 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
 class Feedback extends Component {
-  handleClick = () => {
+  handleClickLogin = () => {
     const { history } = this.props;
     history.push('/');
+  }
+
+  handleClickRanking = () => {
+    const { history } = this.props;
+    history.push('/ranking');
   }
 
   render() {
@@ -30,9 +35,16 @@ class Feedback extends Component {
         <button
           type="button"
           data-testid="btn-play-again"
-          onClick={ this.handleClick }
+          onClick={ this.handleClickLogin }
         >
           Play Again
+        </button>
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ this.handleClickRanking }
+        >
+          Ranking
         </button>
       </div>
     );
