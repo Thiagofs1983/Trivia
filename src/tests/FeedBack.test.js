@@ -1,11 +1,55 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { createMemoryHistory } from 'history';
 import App from '../App';
-import renderWithRouter from './helpers/renderWithRouterAndRedux';
+import renderWithRouterAndRedux from "./helpers/renderWithRouterAndRedux";
 import Feedback from '../pages/Feedback';
+//import renderWithRouter from './helpers/renderWithRouterAndRedux';
+// import { createMemoryHistory } from 'history';
 
+describe('FeedBack Screen Test', () => {
+  
+  it('1. Verifica se a img GRAVATAR é renderizada na tela', () => {
+    renderWithRouterAndRedux(<Feedback />);
+    const imgEl = screen.findByTestId('header-profile-picture');
+    expect(imgEl).toBeInTheDocument();
+  });
+  
+  it('2. Verifica se os botoes estao habilitados e renderizados', () => {
+    renderWithRouterAndRedux(<Feedback />);
+    const btn1 = screen.getByRole('button', { name: /play again/i });
+    expect(btn1).toBeEnabled();
+
+    const btn2 = screen.getByRole('button', { name: /ranking/i });
+    expect(btn2).toBeEnabled();
+  });
+  
+  it('3. Verifica rota do botao Play Again', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    history.push('/feedback')
+    const btnEl = screen.getByRole('button', { name: /play again/i });
+    userEvent.click(btnEl);
+    
+    expect(history.location.pathname).toBe('/');
+  });
+
+  it('4. Verifica rota do botao Ranking', () => {
+    const { history } = renderWithRouterAndRedux(<App />);
+    history.push('/feedback')
+    const btnEl = screen.getByRole('button', { name: /ranking/i });
+    userEvent.click(btnEl);
+    
+    expect(history.location.pathname).toBe('/ranking');
+  });
+  
+  it('5. Verifica se o texto Could be better... é renderizado', () => {
+    renderWithRouterAndRedux(<Feedback />);
+    const textEl = screen.getByRole('heading', { name: /Could be better.../i, level: 1 });
+    expect(textEl).toBeInTheDocument();
+  });
+});
+
+/*
 describe('FeedBack Screen Test', () => {
   beforeEach(() => {
     renderWithRouter(<Feedback />);
@@ -70,3 +114,4 @@ describe('FeedBack Screen Test', () => {
     expect(textEl).toEqual(zero);
   })
 });
+*/
