@@ -47,7 +47,6 @@ class Ranking extends Component {
   render() {
     const { ranking } = this.state;
     const rankingSort = ranking.sort((a, b) => b.userScore - a.userScore);
-    console.log(rankingSort);
     return (
       <div>
         <h2 data-testid="ranking-title">
