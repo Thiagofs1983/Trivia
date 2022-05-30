@@ -23,8 +23,10 @@ class Game extends Component {
 
   async componentDidMount() {
     const token = localStorage.getItem('token');
-    const getToken = await fetchQuestionsAPI(token);
-    const { history } = this.props;
+    const { history, categorie, difficult, type, qtdeQuestions } = this.props;
+    const getToken = await fetchQuestionsAPI({
+      token, id: categorie, difficult, type, qtdeQuestions,
+    });
     const TOKEN_INVALID = 3;
     if (getToken.response_code === TOKEN_INVALID) {
       history.push('/');
@@ -108,8 +110,8 @@ class Game extends Component {
 
   buttonNext = () => {
     const { history } = this.props;
-    const { indexQuestion } = this.state;
-    const MAX_LENGTH = 4;
+    const { indexQuestion, questions } = this.state;
+    const MAX_LENGTH = questions.length - 1;
     if (indexQuestion < MAX_LENGTH) {
       this.setState((prev) => ({
         indexQuestion: prev.indexQuestion + 1,
@@ -132,7 +134,6 @@ class Game extends Component {
       seconds,
     } = this.state;
     const questionIndex = questions[indexQuestion];
-    console.log(questionIndex);
     return (
       <main>
         <Header />
@@ -194,11 +195,22 @@ const mapDispatchToProps = (dispatch) => ({
   setScoree: (score) => dispatch(setScore(score)),
 });
 
+const mapStateToProps = (state) => ({
+  categorie: state.settingReducer.category,
+  difficult: state.settingReducer.difficulty,
+  type: state.settingReducer.type,
+  qtdeQuestions: state.settingReducer.qtdeQuestions,
+});
+
 Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
   setScoree: PropTypes.func.isRequired,
+  categorie: PropTypes.string.isRequired,
+  difficult: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  qtdeQuestions: PropTypes.number.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

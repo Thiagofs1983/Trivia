@@ -18,7 +18,6 @@ class Feedback extends Component {
 
   render() {
     const { userScore, userAssertions } = this.props;
-    console.log(typeof userAssertions);
     const score = parseInt(userScore, 10);
     const assertions = parseInt(userAssertions, 10);
     const QUESTIONS_ASSERTIONS = 3;
@@ -30,7 +29,9 @@ class Feedback extends Component {
           { score }
         </h3>
         <h4>NÚMERO DE ACERTOS</h4>
-        <p data-testid="feedback-total-question">{ assertions }</p>
+        <p data-testid="feedback-total-question">
+          { Number.isNaN(assertions) ? 0 : assertions}
+        </p>
         <p data-testid="feedback-text">
           { assertions < QUESTIONS_ASSERTIONS ? 'Could be better...' : 'Well Done!' }
         </p>

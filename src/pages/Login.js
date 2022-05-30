@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './CSS/Login.css';
+/* import './CSS/Login.css'; */
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { fetchToken } from '../services/getAPI';
-import { createToken } from '../redux/action';
+import { createToken, settings } from '../redux/action';
 
 class Login extends Component {
   constructor() {
@@ -45,6 +44,12 @@ class Login extends Component {
     });
   }
 
+  handleClickSettings = () => {
+    const { history, setSettings } = this.props;
+    setSettings({ category: '' });
+    history.push('/settings');
+  }
+
   render() {
     const { name, email, isDisabled, loading } = this.state;
     return loading ? <p>CARREGANDO...</p> : (
@@ -81,16 +86,13 @@ class Login extends Component {
             >
               PLAY
             </button>
-
-            <Link to="/settings">
-              <button
-                className="button"
-                type="button"
-                data-testid="btn-settings"
-              >
-                SETTINGS
-              </button>
-            </Link>
+            <button
+              onClick={ this.handleClickSettings }
+              type="button"
+              data-testid="btn-settings"
+            >
+              SETTINGS
+            </button>
           </form>
         </div>
       </div>
@@ -100,6 +102,7 @@ class Login extends Component {
 
 Login.propTypes = {
   setToken: PropTypes.func.isRequired,
+  setSettings: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -107,6 +110,7 @@ Login.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   setToken: (state) => dispatch(createToken(state)),
+  setSettings: (state) => dispatch(settings(state)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
