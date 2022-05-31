@@ -1,0 +1,16 @@
+.container button {
+  background-color: var(--button-color);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px black;
+  color: var(--text-color);
+  font-size: large;
+  margin: 8px;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.container button:hover {
+  background-color: var(--button-hover);
+  cursor: pointer;
+}

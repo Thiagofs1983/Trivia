@@ -15,9 +15,9 @@ export const fetchQuestionsAPI = async ({
     } else {
       url = `https://opentdb.com/api.php?amount=${qtdeQuestions}&token=${token}`;
     }
-    console.log(url);
     const response = await fetch(url);
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error) {
     console.log(error);

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setScore } from '../redux/action';
 import Header from '../components/Header';
+import styles from '../styles/Feedback.module.css';
 
 class Feedback extends Component {
   handleClickLogin = () => {
@@ -22,13 +23,13 @@ class Feedback extends Component {
     const assertions = parseInt(userAssertions, 10);
     const QUESTIONS_ASSERTIONS = 3;
     return (
-      <div>
+      <div className={ styles.container }>
         <Header />
-        <h2>PLACAR FINAL</h2>
+        <h2>FINAL SCORE</h2>
         <h3 data-testid="feedback-total-score">
           { score }
         </h3>
-        <h4>NÚMERO DE ACERTOS</h4>
+        <h4>NUMBER OF HITS</h4>
         <p data-testid="feedback-total-question">
           { Number.isNaN(assertions) ? 0 : assertions}
         </p>

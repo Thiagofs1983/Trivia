@@ -1,0 +1,40 @@
+.container {
+  width: 700px;
+}
+
+.container table {
+  border: 1px solid rgb(20, 24, 32);
+  margin: 0 auto;
+  width: 80%;
+}
+
+.container img {
+  border-radius: 50%;
+  width: 40px;
+}
+
+.container th {
+  background-color: rgb(20, 24, 32);
+}
+
+.container tr:nth-child( 2n+1 ) {
+  background-color: rgba(20, 24, 32, 0.5);
+}
+
+.container button {
+  background-color: var(--button-color);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px black;
+  color: var(--text-color);
+  font-size: large;
+  margin: 8px;
+  padding: 10px;
+  transition: 0.3s;
+  width: 200px;
+}
+
+.container button:hover {
+  background-color: var(--button-hover);
+  cursor: pointer;
+}

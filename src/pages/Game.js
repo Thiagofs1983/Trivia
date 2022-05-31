@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { decode } from 'he';
 import { fetchQuestionsAPI } from '../services/getAPI';
 import Header from '../components/Header';
 import { setScore } from '../redux/action';
+import styles from '../styles/Game.module.css';
 import './CSS/Game.css';
 
 class Game extends Component {
@@ -135,16 +137,19 @@ class Game extends Component {
     } = this.state;
     const questionIndex = questions[indexQuestion];
     return (
-      <main>
+      <main className={ styles.main }>
         <Header />
         <p>{ Number.isNaN(seconds) ? 0 : seconds }</p>
         <h2 data-testid="question-text">
-          {questionIndex.question}
+          {decode(questionIndex.question || '')}
         </h2>
         <p data-testid="question-category">
           {questionIndex.category}
         </p>
-        <div data-testid="answer-options">
+        <div
+          data-testid="answer-options"
+          className={ styles.container }
+        >
           {
             alternatives.map((alternative, i) => (
               alternative === questionIndex.correct_answer
@@ -181,6 +186,7 @@ class Game extends Component {
               <button
                 type="button"
                 data-testid="btn-next"
+                className={ styles.buttonNext }
                 onClick={ this.buttonNext }
               >
                 Next
