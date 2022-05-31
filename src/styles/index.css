@@ -1,0 +1,32 @@
+:root {
+
+  --main-color: rgb(40, 44, 52);
+
+  --text-color: white;
+
+  --button-color: rgb(255, 137, 6);
+
+  --button-hover: rgba(255, 237, 6, 0.55);
+
+  --button-disabled: rgba(255, 137, 6, 0.5);
+
+}
+
+* {
+  margin: 0;
+  top: 0;
+}
+
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(116, 145, 135, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(116, 145, 135, 0.781);
+  border: 3px solid rgba(116, 145, 135, 0.781);
+  border-radius: 20px;
+}

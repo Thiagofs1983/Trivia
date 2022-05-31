@@ -102,6 +102,13 @@ describe('1 - App.js', () => {
     expect(buttonEl).toBeDefined();
   })
 
+  it('verifica se ao clicar no botão settings a página é direcionada', () => {
+    renderWithRouter(<App />);
+    const buttonEl = screen.getByRole('button', { name: 'SETTINGS'});
+    userEvent.click(buttonEl)
+    const titleEl = screen.getByRole('heading', { name: /Settings/i, level: 1})
+  })
+
   it('Verifica se a API é chamada', async () => {
     const responseMock = {
       response_code: 0,

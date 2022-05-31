@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setScore } from '../redux/action';
+import styles from '../styles/Ranking.module.css';
 
 class Ranking extends Component {
   constructor() {
@@ -47,9 +48,8 @@ class Ranking extends Component {
   render() {
     const { ranking } = this.state;
     const rankingSort = ranking.sort((a, b) => b.userScore - a.userScore);
-    console.log(rankingSort);
     return (
-      <div>
+      <div className={ styles.container }>
         <h2 data-testid="ranking-title">
           RANKING
         </h2>
@@ -57,8 +57,8 @@ class Ranking extends Component {
           <tbody>
             <tr>
               <th>Avatar</th>
-              <th>Nome</th>
-              <th>Pontuação</th>
+              <th>Name</th>
+              <th>Score</th>
             </tr>
             { rankingSort.map((player, i) => (
               <tr key={ i }>
