@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './CSS/Login.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { fetchToken } from '../services/getAPI';
-import { createToken } from '../redux/action';
+import { createToken, settings } from '../redux/action';
+import styles from '../styles/Login.module.css';
 
 class Login extends Component {
   constructor() {
@@ -13,24 +12,14 @@ class Login extends Component {
       name: '',
       email: '',
       loading: false,
-      isDisabled: true,
     };
   }
 
   handleChange = ({ target: { value, name } }) => {
     this.setState({
       [name]: value,
-    }, () => this.validateBtn());
+    });
   }
-
-  validateBtn = () => {
-    const { name, email } = this.state;
-    const emailCheck = /^.*@.*\.com$/.test(email);
-    const nameCheck = name.length >= 1;
-    if (emailCheck && nameCheck) {
-      this.setState({ isDisabled: false });
-    }
-  };
 
   handleClick = () => {
     this.setState(() => ({
@@ -45,61 +34,59 @@ class Login extends Component {
     });
   }
 
+  handleClickSettings = () => {
+    const { history, setSettings } = this.props;
+    setSettings({ category: '' });
+    history.push('/settings');
+  }
+
   render() {
-    const { name, email, isDisabled, loading } = this.state;
-    return loading ? <p>CARREGANDO...</p> : (
-      <div className="mainContainer">
+    const { name, email, loading } = this.state;
+    const emailCheck = /^.*@.*\.com$/.test(email);
+    return loading ? <p>LOADING...</p> : (
+      <form className={ styles.container }>
+        <h1>Login</h1>
+        <input
+          type="text"
+          name="name"
+          data-testid="input-player-name"
+          value={ name }
+          placeholder="Type your name"
+          onChange={ this.handleChange }
+        />
+        <input
+          type="email"
+          name="email"
+          autoComplete="none"
+          data-testid="input-gravatar-email"
+          value={ email }
+          placeholder="Type your email"
+          onChange={ this.handleChange }
+        />
 
-        <div className="formContainer">
-          <form className="form">
-            <h1>Login</h1>
-            <input
-              className="input"
-              type="text"
-              name="name"
-              data-testid="input-player-name"
-              value={ name }
-              placeholder="Digite o seu nome"
-              onChange={ this.handleChange }
-            />
-            <input
-              className="input"
-              type="email"
-              name="email"
-              data-testid="input-gravatar-email"
-              value={ email }
-              placeholder="Digite o seu email"
-              onChange={ this.handleChange }
-            />
-
-            <button
-              className="Game"
-              type="button"
-              data-testid="btn-play"
-              onClick={ this.handleClick }
-              disabled={ isDisabled }
-            >
-              PLAY
-            </button>
-
-            <Link to="/settings">
-              <button
-                className="button"
-                type="button"
-                data-testid="btn-settings"
-              >
-                SETTINGS
-              </button>
-            </Link>
-          </form>
-        </div>
-      </div>
+        <button
+          type="button"
+          data-testid="btn-play"
+          onClick={ this.handleClick }
+          disabled={ name.length < 1 || !emailCheck }
+        >
+          PLAY
+        </button>
+        <button
+          onClick={ this.handleClickSettings }
+          type="button"
+          data-testid="btn-settings"
+        >
+          SETTINGS
+        </button>
+      </form>
     );
   }
 }
 
 Login.propTypes = {
   setToken: PropTypes.func.isRequired,
+  setSettings: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -107,6 +94,7 @@ Login.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   setToken: (state) => dispatch(createToken(state)),
+  setSettings: (state) => dispatch(settings(state)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

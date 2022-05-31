@@ -1,0 +1,42 @@
+.main {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.container button {
+  background-color: transparent;
+  color: white;
+  font-size: large;
+  margin-bottom: 5px;
+  padding: 8px;
+}
+
+.container button:hover {
+  background-color: rgba(20, 24, 32, 0.5);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.buttonNext {
+  background-color: var(--button-color);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px black;
+  color: var(--text-color);
+  margin-bottom: 8px;
+  padding: 5px;
+  transition: 0.3s;
+  width: 100px;
+}
+
+.buttonNext:hover {
+  background-color: var(--button-hover);
+  cursor: pointer;
+}

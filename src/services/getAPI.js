@@ -5,9 +5,28 @@ export const fetchToken = async () => {
   return result;
 };
 
-export const fetchQuestionsAPI = async (token) => {
+export const fetchQuestionsAPI = async ({
+  qtdeQuestions, token, id = '', difficulty = '', type = '',
+}) => {
   try {
-    const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
+    let url = '';
+    if (id.length > 0 || difficulty.length > 0 || type.length > 0) {
+      url = `https://opentdb.com/api.php?amount=${qtdeQuestions}&token=${token}&category=${id}&difficulty=${difficulty}&type=${type}`;
+    } else {
+      url = `https://opentdb.com/api.php?amount=${qtdeQuestions}&token=${token}`;
+    }
+    const response = await fetch(url);
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchCategory = async () => {
+  try {
+    const url = 'https://opentdb.com/api_category.php';
     const response = await fetch(url);
     const result = await response.json();
     return result;
