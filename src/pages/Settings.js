@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { settings } from '../redux/action';
 import { fetchCategory } from '../services/getAPI';
+import styles from '../styles/Settings.module.css';
 
 class Setings extends Component {
   constructor() {
@@ -45,9 +46,8 @@ class Setings extends Component {
 
   render() {
     const { categories, category, difficulty, type, qtdeQuestions } = this.state;
-    console.log(categories);
     return (
-      <div>
+      <div className={ styles.container }>
         <h1 data-testid="settings-title">Settings</h1>
         <label htmlFor="qtdeQuestions">
           Number of Questions:

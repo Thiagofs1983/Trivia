@@ -1,0 +1,36 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 30%;
+}
+
+.container input, select {
+  font-size: large;
+  max-width: 400px;
+  min-width: 400px;
+  padding: 5px;
+  text-align: center;
+}
+
+.container label {
+  margin: 10px 0;
+}
+
+.container button {
+  background-color: var(--button-color);
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px 1px black;
+  color: var(--text-color);
+  font-size: large;
+  padding: 10px;
+  transition: 0.3s;
+  width: 200px;
+}
+
+.container button:hover {
+  background-color: var(--button-hover);
+  cursor: pointer;
+}
