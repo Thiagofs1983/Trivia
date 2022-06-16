@@ -9,6 +9,7 @@ Deve ser possível também, acessando a página de configurações, escolher a q
 Para trabalhar com as informações em várias páginas, usamos o estado global do Redux.
 
 ### Contribuições
+- Testes de Coverage feitos pela Trybe;
 - Configuração inicial do Redux: Feita em conjunto por chamada de zoom com todos presentes;
 - Funcionalidade da tela de Login: Feita com conjunto por chamada de zoom com todos presentes;
 - Botão de inicio do jogo e botão para a tela de configurações: Lucas Seixas;
