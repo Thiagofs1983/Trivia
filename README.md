@@ -27,7 +27,7 @@ Para trabalhar com as informações em várias páginas, usamos o estado global 
 - Testes usando RTL da tela de Feedback: Adilson Junior;
 - Tela de configurações para mudar as preferências do jogo: Thiago Fonseca;
 
-## Técnologias usadas
+## Tecnologias usadas
 
 Front-end:
 > Desenvolvido usando: React, React Router, RTL, Redux, CSS Module, ES6
