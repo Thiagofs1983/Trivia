@@ -1,5 +1,6 @@
 # Projeto Trivia
 
+# Contexto
 Nesse segundo projeto em grupo na Trybe, onde tive a oportunidade de trabalhar com os parceiros Yuri Villanueva, Sandoerton Amaro, Lucas Seixas e Adilson Júnior, o desafio era usando a API Trivia, criar uma página de perguntas e respostas, onde se tem 30 segundos para responder cada pergunta e a cada resposta correta é somado a seu score a pontuação de acordo com a dificuldade da pergunta e o tempo que ainda restava para escolher a resposta.
 
 No final é gerado um ranking com os jogadores ordenados dos maiores pontuadores para os menores.
@@ -26,13 +27,30 @@ Para trabalhar com as informações em várias páginas, usamos o estado global 
 - Testes usando RTL da tela de Feedback: Adilson Junior;
 - Tela de configurações para mudar as preferências do jogo: Thiago Fonseca;
 
-### Skills para realizar o projeto:
-- JavaScript
-- React
-- RTL
-- Redux
-- CSS
-- CSS Module
-- Comunicação
-- Colaboração
-- Trabalho em equipe
+## Técnologias usadas
+
+Front-end:
+> Desenvolvido usando: React, React Router, RTL, Redux, CSS Module, ES6
+
+## Instalando Dependências
+
+> Frontend
+```bash
+cd sd-020-a-project-trivia-react-redux/
+npm install
+``` 
+## Executando aplicação
+
+* Para rodar o front-end:
+
+  ```
+    cd sd-020-a-project-trivia-react-redux/ && npm start
+  ```
+
+## Executando Testes
+
+* Para rodar todos os testes:
+
+  ```
+    npm test
+  ```
