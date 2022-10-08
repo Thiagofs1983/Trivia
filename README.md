@@ -36,7 +36,7 @@ Front-end:
 
 > Frontend
 ```bash
-cd sd-020-a-project-trivia-react-redux/
+cd Trivia/
 npm install
 ``` 
 ## Executando aplicação
@@ -44,7 +44,7 @@ npm install
 * Para rodar o front-end:
 
   ```
-    cd sd-020-a-project-trivia-react-redux/ && npm start
+    cd Trivia/ && npm start
   ```
 
 ## Executando Testes
@@ -54,3 +54,5 @@ npm install
   ```
     npm test
   ```
+  
+  [<img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="linkedin" height='30'>](https://www.linkedin.com/in/fsthiago/)
