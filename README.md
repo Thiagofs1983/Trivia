@@ -36,6 +36,7 @@ Front-end:
 
 > Frontend
 ```bash
+git clone git@github.com:Thiagofs1983/Trivia.git
 cd Trivia/
 npm install
 ``` 
